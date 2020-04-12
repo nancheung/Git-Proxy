@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 清理文件执行器
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @AllArgsConstructor
 public class CleanFileCommandLineRunner implements CommandLineRunner {

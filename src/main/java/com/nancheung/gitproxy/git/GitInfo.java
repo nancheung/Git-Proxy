@@ -7,7 +7,7 @@ import lombok.ToString;
 /**
  * Git信息
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Getter
 @ToString

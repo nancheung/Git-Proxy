@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 任务自动配置类
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Slf4j
 @Configuration

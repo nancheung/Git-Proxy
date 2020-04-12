@@ -13,7 +13,7 @@ import java.util.Arrays;
 /**
  * 清除zip包任务
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @AllArgsConstructor
 public class CleanZipFileRunnable implements Runnable {

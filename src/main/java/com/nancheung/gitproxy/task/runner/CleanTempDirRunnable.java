@@ -13,7 +13,7 @@ import java.util.Arrays;
 /**
  * 清除临时文件夹任务
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @AllArgsConstructor
 public class CleanTempDirRunnable implements Runnable {

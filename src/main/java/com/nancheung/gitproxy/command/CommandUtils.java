@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 /**
  * 命令行执行工具
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Slf4j
 @UtilityClass

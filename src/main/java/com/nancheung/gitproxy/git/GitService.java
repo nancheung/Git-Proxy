@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Git操作
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Slf4j
 @Service

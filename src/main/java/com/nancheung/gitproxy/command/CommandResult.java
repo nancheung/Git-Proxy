@@ -7,7 +7,7 @@ import lombok.ToString;
 /**
  * 命令行结果
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Getter
 @ToString

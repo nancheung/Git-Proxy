@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * 参数配置
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Data
 @ConfigurationProperties(prefix = "git-proxy")

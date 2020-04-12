@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Git操作接口
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @AllArgsConstructor
 @RestController

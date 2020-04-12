@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 /**
  * 初始化执行器
  *
- * @author : NanCheung
+ * @author NanCheung
  */
 @Slf4j
 @AllArgsConstructor

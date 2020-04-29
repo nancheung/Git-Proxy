@@ -18,8 +18,8 @@ public class InitCommandLineRunner implements CommandLineRunner {
     
     @Override
     public void run(String... args) {
-        gitProxyProperties.getTempDir().toFile().mkdirs();
-        gitProxyProperties.getZipFileDir().toFile().mkdirs();
-        gitProxyProperties.getProgramFileDir().toFile().mkdirs();
+        gitProxyProperties.getTempDirPath().toFile().mkdirs();
+        gitProxyProperties.getZipFilePath().toFile().mkdirs();
+        gitProxyProperties.getProgramFilePath().toFile().mkdirs();
     }
 }

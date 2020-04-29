@@ -5,7 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.time.temporal.ChronoUnit;
 
 /**
  * 参数配置
@@ -15,49 +14,30 @@ import java.time.temporal.ChronoUnit;
 @Data
 @ConfigurationProperties(prefix = "git-proxy")
 public class GitProxyProperties {
+    
+    /**
+     * 默认程序文件路径
+     */
+    public static final Path DEFAULT_PROGRAM_FILE_PATH = new File(System.getProperty("user.home") + "\\.git_proxy\\").toPath();
+    
     /**
      * 程序文件存放路径
      */
-    private Path programFileDir = new File(System.getProperty("user.home") + "\\.git_proxy\\").toPath();
+    private Path programFilePath;
+    
     /**
      * 临时文件夹路径
      */
-    private Path tempDir = new File(programFileDir.toString() + "\\temp\\").toPath();
+    private Path tempDirPath;
+    
     /**
      * 压缩包文件存放路径
      */
-    private Path zipFileDir = new File(programFileDir.toString() + "\\zip\\").toPath();
-    /**
-     * 自动清理文件策略
-     */
-    private Clean clean;
+    private Path zipFilePath;
     
-    /**
-     * 自动清理文件策略
-     */
-    @Data
-    public static class Clean {
-        
-        /**
-         * 压缩包清理策略
-         */
-        private Time zipFile;
-        /**
-         * 临时文件夹清理策略
-         */
-        private Time tempDir;
-        
-        @Data
-        public static class Time {
-            /**
-             * 自动清理文件间隔时长
-             */
-            private int time;
-            /**
-             * 自动清理文件间隔时长单位
-             */
-            private ChronoUnit unit;
-        }
-        
+    {
+        programFilePath = DEFAULT_PROGRAM_FILE_PATH;
+        tempDirPath = new File(DEFAULT_PROGRAM_FILE_PATH.toString() + "\\temp\\").toPath();
+        zipFilePath = new File(DEFAULT_PROGRAM_FILE_PATH.toString() + "\\zip\\").toPath();
     }
 }

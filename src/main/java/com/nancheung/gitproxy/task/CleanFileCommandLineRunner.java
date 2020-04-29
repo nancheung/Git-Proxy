@@ -20,12 +20,13 @@ import java.util.concurrent.TimeUnit;
 public class CleanFileCommandLineRunner implements CommandLineRunner {
     
     private final GitProxyProperties gitProxyProperties;
+    private final CleanStrategyProperties cleanStrategyProperties;
     
     @Override
     public void run(String... args) {
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-                new ThreadFactoryBuilder().setNamePrefix("clean-pool-%d").build());
-        executorService.scheduleAtFixedRate(new CleanTempDirRunnable(gitProxyProperties), 0, 5, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(new CleanZipFileRunnable(gitProxyProperties), 0, 1, TimeUnit.HOURS);
+                new ThreadFactoryBuilder().setNamePrefix("clean-pool-").build());
+        executorService.scheduleAtFixedRate(new CleanTempDirRunnable(gitProxyProperties.getTempDirPath(), cleanStrategyProperties.getTempDir()), 0, 5, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(new CleanZipFileRunnable(gitProxyProperties.getZipFilePath(), cleanStrategyProperties.getZipFile()), 0, 1, TimeUnit.HOURS);
     }
 }

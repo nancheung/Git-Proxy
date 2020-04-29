@@ -1,13 +1,12 @@
-logging:
-  level:
-    com.nancheung.gitproxy.runner: debug
-
 git-proxy:
-  clean:
+  auto-clean-strategy:
     zip-file:
       time: 1
       unit: hours
     temp-dir:
       time: 10
       unit: seconds
-  zip-file-dir: E:\NanCheung\test
+
+logging:
+  level:
+    com.nancheung.gitproxy.runner: debug

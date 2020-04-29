@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-@EnableConfigurationProperties(GitProxyProperties.class)
+@EnableConfigurationProperties(CleanStrategyProperties.class)
 public class TaskAutoConfiguration {
     
     /**
@@ -34,7 +34,7 @@ public class TaskAutoConfiguration {
      * @return 清理文件执行器
      */
     @Bean
-    public CleanFileCommandLineRunner cleanCommandLineRunner(GitProxyProperties gitProxyProperties) {
-        return new CleanFileCommandLineRunner(gitProxyProperties);
+    public CleanFileCommandLineRunner cleanCommandLineRunner(GitProxyProperties gitProxyProperties, CleanStrategyProperties cleanStrategyProperties) {
+        return new CleanFileCommandLineRunner(gitProxyProperties, cleanStrategyProperties);
     }
 }

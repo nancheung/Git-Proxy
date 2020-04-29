@@ -31,7 +31,7 @@ public class GitService {
         GitInfo gitInfo = getGitInfo(url);
         
         //创建临时文件夹
-        String tempDirectoryPath = Files.createTempDirectory(gitProxyProperties.getTempDir(), ".git_proxy").toString();
+        String tempDirectoryPath = Files.createTempDirectory(gitProxyProperties.getTempDirPath(), ".git_proxy").toString();
         
         //clone项目到临时文件夹
         CommandResult result = CommandUtils.getResult("git clone " + gitInfo.getUrl(), tempDirectoryPath);
@@ -39,7 +39,7 @@ public class GitService {
         Assert.isTrue(CommandUtils.verify(result), result.getResult());
         
         //将项目打压缩包
-        return ZipUtil.zip(tempDirectoryPath, gitProxyProperties.getZipFileDir() + "\\" + gitInfo.getRepositoryName() + ".zip");
+        return ZipUtil.zip(tempDirectoryPath, gitProxyProperties.getZipFilePath() + "\\" + gitInfo.getRepositoryName() + ".zip");
     }
     
     public GitInfo getGitInfo(String url) {

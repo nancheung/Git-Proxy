@@ -5,6 +5,7 @@ import com.nancheung.gitproxy.GitProxyProperties;
 import com.nancheung.gitproxy.task.runner.CleanTempDirRunnable;
 import com.nancheung.gitproxy.task.runner.CleanZipFileRunnable;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author NanCheung
  */
+@Slf4j
 @AllArgsConstructor
 public class CleanFileCommandLineRunner implements CommandLineRunner {
     
@@ -24,9 +26,10 @@ public class CleanFileCommandLineRunner implements CommandLineRunner {
     
     @Override
     public void run(String... args) {
-        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-                new ThreadFactoryBuilder().setNamePrefix("clean-pool-").build());
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1, new ThreadFactoryBuilder().setNamePrefix("clean-pool-").build());
         executorService.scheduleAtFixedRate(new CleanTempDirRunnable(gitProxyProperties.getTempDirPath(), cleanStrategyProperties.getTempDir()), 0, 5, TimeUnit.MINUTES);
         executorService.scheduleAtFixedRate(new CleanZipFileRunnable(gitProxyProperties.getZipFilePath(), cleanStrategyProperties.getZipFile()), 0, 1, TimeUnit.HOURS);
+    
+        log.debug("创建清理任务完成");
     }
 }

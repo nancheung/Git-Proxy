@@ -29,15 +29,17 @@ public class GitService {
     public File clone(String url) throws ExecutionException, InterruptedException, IOException {
         //解析git信息
         GitInfo gitInfo = getGitInfo(url);
-        
+    
+        log.debug("开始clone，git信息[{}]", gitInfo);
+    
         //创建临时文件夹
         String tempDirectoryPath = Files.createTempDirectory(gitProxyProperties.getTempDirPath(), ".git_proxy").toString();
-        
+    
         //clone项目到临时文件夹
         CommandResult result = CommandUtils.getResult("git clone " + gitInfo.getUrl(), tempDirectoryPath);
-        
+    
         Assert.isTrue(CommandUtils.verify(result), result.getResult());
-        
+    
         //将项目打压缩包
         return ZipUtil.zip(tempDirectoryPath, gitProxyProperties.getZipFilePath() + "\\" + gitInfo.getRepositoryName() + ".zip");
     }

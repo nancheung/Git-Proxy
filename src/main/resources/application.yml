@@ -7,6 +7,11 @@ git-proxy:
       time: 10
       unit: seconds
 
+spring:
+  output:
+    ansi:
+      enabled: detect
+
 logging:
   level:
-    com.nancheung.gitproxy.runner: debug
+    com.nancheung.gitproxy.task: debug

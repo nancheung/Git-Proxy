@@ -21,5 +21,7 @@ public class InitCommandLineRunner implements CommandLineRunner {
         gitProxyProperties.getTempDirPath().toFile().mkdirs();
         gitProxyProperties.getZipFilePath().toFile().mkdirs();
         gitProxyProperties.getProgramFilePath().toFile().mkdirs();
+    
+        log.debug("初始化运行环境，运行配置[{}]", gitProxyProperties);
     }
 }

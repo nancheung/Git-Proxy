@@ -1,8 +1,8 @@
 git-proxy:
   auto-clean-strategy:
     zip-file:
-      time: 1
-      unit: hours
+      time: 10
+      unit: seconds
     temp-dir:
       time: 10
       unit: seconds
@@ -14,4 +14,4 @@ spring:
 
 logging:
   level:
-    com.nancheung.gitproxy.task: debug
+    com.nancheung.gitproxy: debug

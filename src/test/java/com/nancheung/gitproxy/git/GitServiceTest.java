@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -21,8 +20,7 @@ class GitServiceTest {
     
     @Test
     void testClone() throws InterruptedException, ExecutionException, IOException {
-        File file = gitService.clone(GIT_URL);
-        System.out.println(file);
+        gitService.clone(GIT_URL);
     }
     
     @Test

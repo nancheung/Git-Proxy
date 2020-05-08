@@ -6,12 +6,13 @@ import com.nancheung.gitproxy.command.CommandResult;
 import com.nancheung.gitproxy.command.CommandUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -26,22 +27,23 @@ public class GitService {
     
     private final GitProxyProperties gitProxyProperties;
     
-    public File clone(String url) throws ExecutionException, InterruptedException, IOException {
+    @Async("gitCloneExecutor")
+    public void clone(String url) throws ExecutionException, InterruptedException, IOException {
         //解析git信息
-        GitInfo gitInfo = getGitInfo(url);
-    
+        GitInfo gitInfo = this.getGitInfo(url);
+        
         log.debug("开始clone，git信息[{}]", gitInfo);
-    
+        
         //创建临时文件夹
-        String tempDirectoryPath = Files.createTempDirectory(gitProxyProperties.getTempDirPath(), ".git_proxy").toString();
-    
+        Path tempDirectory = Files.createTempDirectory(gitProxyProperties.getTempDirPath(), gitInfo.getRepositoryName());
+        String tempDirectoryPath = tempDirectory.toString();
+        
         //clone项目到临时文件夹
         CommandResult result = CommandUtils.getResult("git clone " + gitInfo.getUrl(), tempDirectoryPath);
-    
         Assert.isTrue(CommandUtils.verify(result), result.getResult());
-    
+        
         //将项目打压缩包
-        return ZipUtil.zip(tempDirectoryPath, gitProxyProperties.getZipFilePath() + "\\" + gitInfo.getRepositoryName() + ".zip");
+        ZipUtil.zip(tempDirectoryPath, gitProxyProperties.getZipFilePath() + "\\" + tempDirectory.getFileName() + ".zip");
     }
     
     public GitInfo getGitInfo(String url) {

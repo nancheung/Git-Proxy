@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.task.runner;
+package com.nancheung.gitproxy.task.runnable;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;

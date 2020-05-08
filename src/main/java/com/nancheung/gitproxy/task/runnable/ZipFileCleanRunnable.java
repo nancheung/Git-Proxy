@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.task.runner;
+package com.nancheung.gitproxy.task.runnable;
 
 import com.nancheung.gitproxy.task.CleanStrategyProperties;
 
@@ -9,9 +9,9 @@ import java.nio.file.Path;
  *
  * @author NanCheung
  */
-public class CleanZipFileRunnable extends AbstractCleanRunnable {
+public class ZipFileCleanRunnable extends AbstractCleanRunnable {
     
-    public CleanZipFileRunnable(Path cleanPath, CleanStrategyProperties.Strategy cleanStrategy) {
+    public ZipFileCleanRunnable(Path cleanPath, CleanStrategyProperties.Strategy cleanStrategy) {
         super(cleanPath, cleanStrategy);
     }
     

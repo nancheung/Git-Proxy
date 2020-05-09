@@ -8,6 +8,8 @@ git-proxy:
       unit: seconds
 
 spring:
+  jackson:
+    default-property-inclusion: non_null
   output:
     ansi:
       enabled: detect

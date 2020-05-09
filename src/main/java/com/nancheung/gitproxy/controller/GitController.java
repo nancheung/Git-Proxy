@@ -1,5 +1,6 @@
 package com.nancheung.gitproxy.controller;
 
+import com.nancheung.gitproxy.common.ApiResult;
 import com.nancheung.gitproxy.git.GitService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class GitController {
     private final GitService gitService;
     
     @GetMapping("clone")
-    public void clone(String url) throws InterruptedException, ExecutionException, IOException {
+    public ApiResult<Void> clone(String url) throws InterruptedException, ExecutionException, IOException {
         gitService.clone(url);
+        return ApiResult.success();
     }
 }

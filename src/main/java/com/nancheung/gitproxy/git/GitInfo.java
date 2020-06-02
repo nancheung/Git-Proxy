@@ -1,8 +1,10 @@
 package com.nancheung.gitproxy.git;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.util.Assert;
 
 /**
  * Git信息
@@ -11,7 +13,7 @@ import lombok.ToString;
  */
 @Getter
 @ToString
-@Builder
+@Builder(access = AccessLevel.PRIVATE)
 public class GitInfo {
     /**
      * git服务器
@@ -29,4 +31,17 @@ public class GitInfo {
      * url
      */
     private String url;
+    
+    public static GitInfo build(String url) {
+        Assert.hasText(url, "git链接不能为空");
+        String[] gitInfos = url.split("/");
+        Assert.isTrue(gitInfos.length == 5, "git链接格式错误！");
+        
+        return GitInfo.builder()
+                .gitServer(gitInfos[2])
+                .userName(gitInfos[3])
+                .repositoryName(gitInfos[4])
+                .url(url)
+                .build();
+    }
 }

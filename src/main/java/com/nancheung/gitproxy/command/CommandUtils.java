@@ -50,28 +50,29 @@ public class CommandUtils {
      * @throws ExecutionException   执行过程中可能抛出该异常
      * @throws InterruptedException 当线程阻塞时，可能抛出该异常
      */
-    public CommandResult getResult(Process process) throws ExecutionException, InterruptedException {
+    public CommandResult getResult(Process process) throws InterruptedException, ExecutionException {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
                 .setNamePrefix("clone-result-pool-%d").build();
-        ExecutorService threadPool = new ThreadPoolExecutor(2, 2,
-                0L, TimeUnit.MILLISECONDS,
+        ExecutorService threadPool = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(1), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
-        
-        Future<String> resultFuture = threadPool.submit(() -> RuntimeUtil.getResult(process));
-        Future<String> errorResultFuture = threadPool.submit(() -> RuntimeUtil.getErrorResult(process));
-        
+    
         String result;
-        while (true) {
-            if (resultFuture.isDone() && errorResultFuture.isDone()) {
-                if (StringUtils.isEmpty(result = resultFuture.get())) {
-                    result = errorResultFuture.get();
+        try {
+            Future<String> resultFuture = threadPool.submit(() -> RuntimeUtil.getResult(process));
+            Future<String> errorResultFuture = threadPool.submit(() -> RuntimeUtil.getErrorResult(process));
+        
+            while (true) {
+                if (resultFuture.isDone() && errorResultFuture.isDone()) {
+                    if (StringUtils.isEmpty(result = resultFuture.get())) {
+                        result = errorResultFuture.get();
+                    }
+                    break;
                 }
-                break;
             }
+        } finally {
+            threadPool.shutdown();
         }
-        
-        threadPool.shutdown();
-        
+    
         return CommandResult.builder()
                 .status(process.waitFor())
                 .result(result)

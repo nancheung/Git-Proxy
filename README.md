@@ -3,6 +3,7 @@
 ![stars](https://img.shields.io/github/stars/nancheung97/Git-Proxy)
 ![platform](https://img.shields.io/badge/platform-linux%20%7C%20windows-lightgrey)
 ![license](https://img.shields.io/github/license/nancheung97/Git-Proxy)
+![Java CI with Maven](https://github.com/nancheung97/Git-Proxy/workflows/Java%20CI%20with%20Maven/badge.svg)
 
 
 

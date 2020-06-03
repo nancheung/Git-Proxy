@@ -31,6 +31,7 @@
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
 
         <hutool.version>5.2.4</hutool.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
     </properties>
 
     <dependencies>
@@ -38,6 +39,17 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+
+        <!--数据源配置包-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency><!--MybatisPlus-->
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
 
         <dependency>
@@ -52,6 +64,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
 

@@ -1,0 +1,69 @@
+{
+  "groups": [
+    {
+      "name": "git-proxy",
+      "type": "com.nancheung.gitproxy.GitProxyProperties",
+      "sourceType": "com.nancheung.gitproxy.GitProxyProperties"
+    },
+    {
+      "name": "git-proxy.auto-clean-strategy",
+      "type": "com.nancheung.gitproxy.task.CleanStrategyProperties",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties"
+    },
+    {
+      "name": "git-proxy.auto-clean-strategy.temp-dir",
+      "type": "com.nancheung.gitproxy.task.CleanStrategyProperties$Strategy",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties"
+    },
+    {
+      "name": "git-proxy.auto-clean-strategy.zip-file",
+      "type": "com.nancheung.gitproxy.task.CleanStrategyProperties$Strategy",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "git-proxy.auto-clean-strategy.temp-dir.time",
+      "type": "java.lang.Integer",
+      "description": "自动清理文件间隔时长",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties$Strategy"
+    },
+    {
+      "name": "git-proxy.auto-clean-strategy.temp-dir.unit",
+      "type": "java.time.temporal.ChronoUnit",
+      "description": "自动清理文件间隔时长单位",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties$Strategy"
+    },
+    {
+      "name": "git-proxy.auto-clean-strategy.zip-file.time",
+      "type": "java.lang.Integer",
+      "description": "自动清理文件间隔时长",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties$Strategy"
+    },
+    {
+      "name": "git-proxy.auto-clean-strategy.zip-file.unit",
+      "type": "java.time.temporal.ChronoUnit",
+      "description": "自动清理文件间隔时长单位",
+      "sourceType": "com.nancheung.gitproxy.task.CleanStrategyProperties$Strategy"
+    },
+    {
+      "name": "git-proxy.program-file-path",
+      "type": "java.nio.file.Path",
+      "description": "程序文件存放路径",
+      "sourceType": "com.nancheung.gitproxy.GitProxyProperties"
+    },
+    {
+      "name": "git-proxy.temp-dir-path",
+      "type": "java.nio.file.Path",
+      "description": "临时文件夹路径",
+      "sourceType": "com.nancheung.gitproxy.GitProxyProperties"
+    },
+    {
+      "name": "git-proxy.zip-file-path",
+      "type": "java.nio.file.Path",
+      "description": "压缩包文件存放路径",
+      "sourceType": "com.nancheung.gitproxy.GitProxyProperties"
+    }
+  ],
+  "hints": []
+}

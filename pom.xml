@@ -4,7 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.nancheung</groupId>
     <artifactId>git-proxy</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>git-proxy</name>
     <description>Git Proxy用于代理Git操作</description>
     <organization>
@@ -22,23 +24,31 @@
         </developer>
     </developers>
 
+    <modules>
+        <module>git-proxy-common</module>
+        <module>git-proxy-api</module>
+    </modules>
+
     <properties>
+        <git-proxy.version>${project.version}</git-proxy.version>
         <java.version>1.8</java.version>
 
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
 
         <hutool.version>5.2.4</hutool.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <swagger.version>2.9.2</swagger.version>
+        <knife4j.version>2.0.2</knife4j.version>
     </properties>
 
     <dependencies>
         <dependency> <!--工具库-->
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
 
         <!--数据源配置包-->
@@ -49,7 +59,6 @@
         <dependency><!--MybatisPlus-->
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
         </dependency>
 
         <dependency>
@@ -78,6 +87,28 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency><!--核心集成-->
+                <groupId>com.nancheung</groupId>
+                <artifactId>git-proxy-common-core</artifactId>
+                <version>${git-proxy.version}</version>
+            </dependency>
+            <dependency><!--swagger集成-->
+                <groupId>com.nancheung</groupId>
+                <artifactId>git-proxy-common-swagger</artifactId>
+                <version>${git-proxy.version}</version>
+            </dependency>
+
+            <dependency> <!--工具库-->
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency><!--MybatisPlus-->
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
             <dependency><!--SpringBoot依赖包版本管理-->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -107,10 +138,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <target>${maven.compiler.target}</target>
                     <source>${maven.compiler.source}</source>
@@ -118,9 +150,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
         </plugins>
-
     </build>
 
 </project>

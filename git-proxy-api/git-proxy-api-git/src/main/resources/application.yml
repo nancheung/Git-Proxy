@@ -1,0 +1,41 @@
+git-proxy:
+  auto-clean-strategy:
+    zip-file:
+      time: 10
+      unit: seconds
+    temp-dir:
+      time: 10
+      unit: seconds
+
+spring:
+  # json配置
+  jackson:
+    default-property-inclusion: non_null
+  output:
+    ansi:
+      enabled: detect
+  # 数据源配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/git_proxy
+    username: root
+    password: GitProxyYes!
+
+mybatis-plus:
+  global-config:
+    banner: false
+
+logging:
+  level:
+    com.nancheung.gitproxy: debug
+
+swagger:
+  contact:
+    name: NanCheung
+    email: i@nancheung.com
+    url: https://github.com/nancheung97/Git-Proxy
+  title: Git Proxy
+  description: Git Proxy是用于代理Git操作的一个项目。可以部署在网速通畅的机器上，通过GitProxy提交Git链接，GitProxy将给您一个带有Git信息的ZIP压缩包。
+  license: GNU General Public License v3.0
+  license-url: https://www.gnu.org/licenses/gpl-3.0.html

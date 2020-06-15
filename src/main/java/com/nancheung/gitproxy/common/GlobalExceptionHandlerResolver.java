@@ -1,6 +1,7 @@
 package com.nancheung.gitproxy.common;
 
 import com.nancheung.gitproxy.common.exception.GitProxyRejectedExecutionException;
+import com.nancheung.gitproxy.common.exception.enums.GitExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.scheduling.annotation.Async;
@@ -18,12 +19,10 @@ public class GlobalExceptionHandlerResolver {
     
     /**
      * 线程池满，不能提交任务
-     *
-     * @param e {@link GitProxyRejectedExecutionException}
      */
     @ExceptionHandler(GitProxyRejectedExecutionException.class)
-    public ApiResult<Void> handleException(GitProxyRejectedExecutionException e) {
-        return ApiResult.failed(e.getLocalizedMessage());
+    public ApiResult<Void> handleGitProxyRejectedExecutionException() {
+        return ApiResult.failed(GitExceptionEnum.GIT_DOWNLOAD_THREAD_POOL_FULL);
     }
     
     /**
@@ -31,12 +30,10 @@ public class GlobalExceptionHandlerResolver {
      * <p>
      * 使用Spring的 {@link Async} 注解时,真正的异常会被封装为 {@link TaskRejectedException}
      * </p>
-     *
-     * @param e {@link TaskRejectedException}
      */
     @ExceptionHandler(TaskRejectedException.class)
-    public ApiResult<Void> handleException(TaskRejectedException e) {
-        return ApiResult.failed(e.getCause().getLocalizedMessage());
+    public ApiResult<Void> handleTaskRejectedException() {
+        return ApiResult.failed(GitExceptionEnum.GIT_DOWNLOAD_THREAD_POOL_FULL);
     }
     
     /**

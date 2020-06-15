@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.common.core.exception;
+package com.nancheung.gitproxy.common.core.exception.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;

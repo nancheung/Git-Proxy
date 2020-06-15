@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.api.git.common;
 
-import com.nancheung.gitproxy.common.core.exception.GitProxyExceptionEnum;
+import com.nancheung.gitproxy.common.core.exception.enums.GitProxyExceptionEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -64,6 +64,10 @@ public class ApiResult<T> implements Serializable {
     
     public static ApiResult<Void> failed(GitProxyExceptionEnum exceptionEnum) {
         return build(exceptionEnum, null);
+    }
+    
+    public static ApiResult<Void> failed(GitProxyExceptionEnum exceptionEnum, String msg) {
+        return build(exceptionEnum.code(), msg, null);
     }
     
     public static <T> ApiResult<T> failed(GitProxyExceptionEnum exceptionEnum, T data) {

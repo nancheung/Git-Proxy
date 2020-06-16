@@ -1,6 +1,5 @@
 package com.nancheung.gitproxy.api.git.common.swagger;
 
-
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import lombok.AllArgsConstructor;
@@ -17,10 +16,10 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * swagger配置类
@@ -45,28 +44,28 @@ public class SwaggerAutoConfiguration {
     @Bean
     public Docket api() {
         // base-path处理
-        if (swaggerProperties.getBasePath().isEmpty()) {
-            swaggerProperties.getBasePath().add(BASE_PATH);
+        List<String> basePath = swaggerProperties.getBasePath();
+        if (basePath.isEmpty()) {
+            basePath.add(BASE_PATH);
         }
-        List<Predicate<String>> basePath = new ArrayList<>();
-        swaggerProperties.getBasePath().forEach(path -> basePath.add(PathSelectors.ant(path)));
+        List<Predicate<String>> basePaths = basePath.stream().map(PathSelectors::ant).collect(Collectors.toList());
         
         // exclude-path处理
-        if (swaggerProperties.getExcludePath().isEmpty()) {
-            swaggerProperties.getExcludePath().addAll(DEFAULT_EXCLUDE_PATH);
+        List<String> excludePath = swaggerProperties.getExcludePath();
+        if (excludePath.isEmpty()) {
+            excludePath.addAll(DEFAULT_EXCLUDE_PATH);
         }
-        List<Predicate<String>> excludePath = new ArrayList<>();
-        swaggerProperties.getExcludePath().forEach(path -> excludePath.add(PathSelectors.ant(path)));
+        List<Predicate<String>> excludePaths = excludePath.stream().map(PathSelectors::ant).collect(Collectors.toList());
         
         //noinspection Guava
         return new Docket(DocumentationType.SWAGGER_2)
                 .host(swaggerProperties.getHost())
                 .apiInfo(apiInfo(swaggerProperties)).select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
-                .paths(Predicates.and(Predicates.not(Predicates.or(excludePath)), Predicates.or(basePath)))
+                .paths(Predicates.and(Predicates.not(Predicates.or(excludePaths)), Predicates.or(basePaths)))
                 .build()
-                .securitySchemes(Collections.singletonList(oauthSecuritySchema()))
-                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(this.oauthSecuritySchema()))
+                .securityContexts(Collections.singletonList(this.securityContext()))
                 .pathMapping("/");
     }
     
@@ -77,7 +76,7 @@ public class SwaggerAutoConfiguration {
      */
     private SecurityContext securityContext() {
         return SecurityContext.builder()
-                .securityReferences(defaultAuth())
+                .securityReferences(this.defaultAuth())
                 .forPaths(PathSelectors.regex(swaggerProperties.getAuthorization().getAuthRegex()))
                 .build();
     }
@@ -88,12 +87,12 @@ public class SwaggerAutoConfiguration {
      * @return 默认策略列表
      */
     private List<SecurityReference> defaultAuth() {
-        ArrayList<AuthorizationScope> authorizationScopeList = new ArrayList<>();
-        swaggerProperties.getAuthorization().getAuthorizationScopeList().forEach(authorizationScope -> authorizationScopeList.add(new AuthorizationScope(authorizationScope.getScope(), authorizationScope.getDescription())));
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[authorizationScopeList.size()];
+        AuthorizationScope[] authorizationScopes = swaggerProperties.getAuthorization().getAuthorizationScopeList().stream()
+                .map(authorizationScope -> new AuthorizationScope(authorizationScope.getScope(), authorizationScope.getDescription()))
+                .toArray(AuthorizationScope[]::new);
         return Collections.singletonList(SecurityReference.builder()
                 .reference(swaggerProperties.getAuthorization().getName())
-                .scopes(authorizationScopeList.toArray(authorizationScopes))
+                .scopes(authorizationScopes)
                 .build());
     }
     
@@ -103,14 +102,26 @@ public class SwaggerAutoConfiguration {
      * @return OAuth安全方案
      */
     private OAuth oauthSecuritySchema() {
-        ArrayList<AuthorizationScope> authorizationScopeList = new ArrayList<>();
-        swaggerProperties.getAuthorization().getAuthorizationScopeList().forEach(authorizationScope -> authorizationScopeList.add(new AuthorizationScope(authorizationScope.getScope(), authorizationScope.getDescription())));
-        ArrayList<GrantType> grantTypes = new ArrayList<>();
-        swaggerProperties.getAuthorization().getTokenUrlList().forEach(tokenUrl -> grantTypes.add(new ResourceOwnerPasswordCredentialsGrant(tokenUrl)));
-        return new OAuth(swaggerProperties.getAuthorization().getName(), authorizationScopeList, grantTypes);
+        SwaggerProperties.Authorization authorization = swaggerProperties.getAuthorization();
+        
+        List<AuthorizationScope> authorizationScopeList = authorization.getAuthorizationScopeList().stream()
+                .map(authorizationScope -> new AuthorizationScope(authorizationScope.getScope(), authorizationScope.getDescription()))
+                .collect(Collectors.toList());
+        
+        List<GrantType> grantTypes = authorization.getTokenUrlList().stream()
+                .map(ResourceOwnerPasswordCredentialsGrant::new)
+                .collect(Collectors.toList());
+        
+        return new OAuth(authorization.getName(), authorizationScopeList, grantTypes);
     }
     
-    private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
+    /**
+     * 构建api信息
+     *
+     * @param swaggerProperties swagger参数配置
+     * @return api信息
+     */
+    private static ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
         return new ApiInfoBuilder()
                 .title(swaggerProperties.getTitle())
                 .description(swaggerProperties.getDescription())

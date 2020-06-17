@@ -22,18 +22,14 @@ public interface GitProxyExceptionEnum {
     GitProxyExceptionEnum SYSTEM_ERROR = DefaultExceptionEnum.SYSTEM_ERROR;
     
     /**
-     * 获取错误码
-     *
-     * @return 错误码
+     * 错误码
      */
     String code();
     
     /**
-     * 获取描述
-     *
-     * @return 描述
+     * 描述
      */
-    String msg();
+    String message();
     
     @ToString
     @AllArgsConstructor
@@ -48,7 +44,7 @@ public interface GitProxyExceptionEnum {
         /**
          * 描述
          */
-        private final String msg;
+        private final String message;
         
         @Override
         public String code() {
@@ -56,8 +52,8 @@ public interface GitProxyExceptionEnum {
         }
         
         @Override
-        public String msg() {
-            return msg;
+        public String message() {
+            return message;
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.api.git.controller;
 
-import com.nancheung.gitproxy.api.git.common.ApiResult;
+import com.nancheung.gitproxy.common.core.exception.ApiResult;
 import com.nancheung.gitproxy.api.git.common.GitInfo;
 import com.nancheung.gitproxy.api.git.service.GitService;
 import io.swagger.annotations.Api;

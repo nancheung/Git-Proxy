@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
-import com.nancheung.gitproxy.api.git.common.ApiResult;
+import com.nancheung.gitproxy.common.core.exception.ApiResult;
 import com.nancheung.gitproxy.common.core.exception.enums.ClientExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;

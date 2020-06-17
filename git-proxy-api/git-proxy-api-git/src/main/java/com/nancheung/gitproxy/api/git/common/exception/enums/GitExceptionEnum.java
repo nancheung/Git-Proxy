@@ -14,7 +14,7 @@ public enum GitExceptionEnum implements GitProxyExceptionEnum {
     GIT_DOWNLOAD_THREAD_POOL_FULL("D0100", "Git下载线程池满");
     
     private final String code;
-    private final String msg;
+    private final String message;
     
     @Override
     public String code() {
@@ -22,7 +22,7 @@ public enum GitExceptionEnum implements GitProxyExceptionEnum {
     }
     
     @Override
-    public String msg() {
-        return msg;
+    public String message() {
+        return message;
     }
 }

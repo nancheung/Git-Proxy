@@ -13,7 +13,7 @@ public enum ClientExceptionEnum implements GitProxyExceptionEnum {
     REQUEST_PARAMETER_ERROR("A0400", "用户请求参数错误");
     
     private final String code;
-    private final String msg;
+    private final String message;
     
     @Override
     public String code() {
@@ -21,7 +21,7 @@ public enum ClientExceptionEnum implements GitProxyExceptionEnum {
     }
     
     @Override
-    public String msg() {
-        return msg;
+    public String message() {
+        return message;
     }
 }

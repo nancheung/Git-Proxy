@@ -42,6 +42,7 @@
         <hutool.version>5.2.4</hutool.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <swagger.version>2.9.2</swagger.version>
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
         <knife4j.version>2.0.2</knife4j.version>
     </properties>
 
@@ -96,6 +97,12 @@
                 <groupId>com.nancheung</groupId>
                 <artifactId>git-proxy-common-swagger</artifactId>
                 <version>${git-proxy.version}</version>
+            </dependency>
+            <dependency><!--swagger注解-->
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency> <!--工具库-->

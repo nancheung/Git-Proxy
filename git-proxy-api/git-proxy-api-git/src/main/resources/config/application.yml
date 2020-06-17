@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: dev
+  # json配置
+  jackson:
+    default-property-inclusion: non_null
+  output:
+    ansi:
+      enabled: detect
+  # 数据源配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  global-config:
+    banner: false

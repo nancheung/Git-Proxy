@@ -1,17 +1,17 @@
-package com.nancheung.gitproxy.api.git.common.exception.enums;
+package com.nancheung.gitproxy.common.core.exception.enums;
 
 import com.nancheung.gitproxy.common.core.exception.enums.interfaces.ClientExceptionIEnum;
 import lombok.AllArgsConstructor;
 
 /**
- * Git异常枚举
+ * 校验异常枚举
  *
  * @author NanCheung
  */
 @AllArgsConstructor
-public enum GitExceptionEnum implements ClientExceptionIEnum {
-    GIT_ERROR("0200", "Git操作失败"),
-    GIT_DOWNLOAD_THREAD_POOL_FULL("0201", "Git下载线程池满");
+public enum ValidationExceptionEnum implements ClientExceptionIEnum {
+    REQUEST_PARAMETER_ERROR("0100", "用户请求参数错误"),
+    USER_INPUT_IS_ILLEGAL("0101", "用户输入内容非法");
     
     private final String number;
     private final String message;

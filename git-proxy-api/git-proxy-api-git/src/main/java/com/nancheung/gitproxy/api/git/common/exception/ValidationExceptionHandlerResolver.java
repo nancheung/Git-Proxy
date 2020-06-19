@@ -1,7 +1,7 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
 import com.nancheung.gitproxy.common.core.exception.ApiResult;
-import com.nancheung.gitproxy.common.core.exception.enums.ClientExceptionEnum;
+import com.nancheung.gitproxy.common.core.exception.enums.ValidationExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -31,7 +31,7 @@ public class ValidationExceptionHandlerResolver {
         return e.getConstraintViolations()
                 .stream()
                 .findFirst()
-                .map(constraintViolation -> ApiResult.failed(ClientExceptionEnum.REQUEST_PARAMETER_ERROR, constraintViolation.getMessage()))
+                .map(constraintViolation -> ApiResult.failed(ValidationExceptionEnum.USER_INPUT_IS_ILLEGAL, constraintViolation.getMessage()))
                 .orElseGet(ApiResult::failed);
     }
     
@@ -40,7 +40,7 @@ public class ValidationExceptionHandlerResolver {
         return e.getBindingResult().getAllErrors()
                 .stream()
                 .findFirst()
-                .map(objectError -> ApiResult.failed(ClientExceptionEnum.REQUEST_PARAMETER_ERROR, objectError.getDefaultMessage()))
+                .map(objectError -> ApiResult.failed(ValidationExceptionEnum.USER_INPUT_IS_ILLEGAL, objectError.getDefaultMessage()))
                 .orElseGet(ApiResult::failed);
     }
     
@@ -49,7 +49,7 @@ public class ValidationExceptionHandlerResolver {
         return e.getBindingResult().getAllErrors()
                 .stream()
                 .findFirst()
-                .map(objectError -> ApiResult.failed(ClientExceptionEnum.REQUEST_PARAMETER_ERROR, objectError.getDefaultMessage()))
+                .map(objectError -> ApiResult.failed(ValidationExceptionEnum.USER_INPUT_IS_ILLEGAL, objectError.getDefaultMessage()))
                 .orElseGet(ApiResult::failed);
     }
     

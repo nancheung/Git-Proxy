@@ -1,6 +1,7 @@
 package com.nancheung.gitproxy.common.core.exception;
 
-import com.nancheung.gitproxy.common.core.exception.enums.GitProxyExceptionEnum;
+import com.nancheung.gitproxy.common.core.exception.enums.interfaces.GitProxyExceptionIEnum;
+import com.nancheung.gitproxy.common.core.exception.enums.interfaces.SystemExceptionIEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,22 +50,22 @@ public class ApiResult<T> implements Serializable {
     }
     
     public static <T> ApiResult<T> success(T data) {
-        return build(GitProxyExceptionEnum.SUCCESS, null, data);
+        return build(GitProxyExceptionIEnum.SUCCESS, null, data);
     }
     
     public static ApiResult<Void> failed() {
-        return failed(GitProxyExceptionEnum.SYSTEM_ERROR);
+        return failed(SystemExceptionIEnum.SYSTEM_ERROR);
     }
     
-    public static ApiResult<Void> failed(GitProxyExceptionEnum exceptionEnum) {
+    public static ApiResult<Void> failed(GitProxyExceptionIEnum exceptionEnum) {
         return failed(exceptionEnum, null);
     }
     
-    public static ApiResult<Void> failed(GitProxyExceptionEnum exceptionEnum, String errorCause) {
+    public static ApiResult<Void> failed(GitProxyExceptionIEnum exceptionEnum, String errorCause) {
         return build(exceptionEnum, errorCause, null);
     }
     
-    private static <T> ApiResult<T> build(GitProxyExceptionEnum exceptionEnum, String errorCause, T data) {
+    private static <T> ApiResult<T> build(GitProxyExceptionIEnum exceptionEnum, String errorCause, T data) {
         return build(exceptionEnum.code(), exceptionEnum.message(), errorCause, data);
     }
     

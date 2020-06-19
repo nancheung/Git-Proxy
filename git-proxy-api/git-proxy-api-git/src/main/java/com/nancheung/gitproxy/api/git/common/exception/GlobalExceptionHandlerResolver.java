@@ -1,8 +1,8 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
-import com.nancheung.gitproxy.common.core.exception.ApiResult;
 import com.nancheung.gitproxy.api.git.common.exception.enums.GitExceptionEnum;
-import com.nancheung.gitproxy.common.core.exception.enums.GitProxyExceptionEnum;
+import com.nancheung.gitproxy.common.core.exception.ApiResult;
+import com.nancheung.gitproxy.common.core.exception.enums.interfaces.SystemExceptionIEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.scheduling.annotation.Async;
@@ -45,6 +45,6 @@ public class GlobalExceptionHandlerResolver {
     @ExceptionHandler(Exception.class)
     public ApiResult<Void> handleException(Exception e) {
         log.error("未捕获的异常", e);
-        return ApiResult.failed(GitProxyExceptionEnum.SYSTEM_ERROR, e.getLocalizedMessage());
+        return ApiResult.failed(SystemExceptionIEnum.SYSTEM_ERROR, e.getLocalizedMessage());
     }
 }

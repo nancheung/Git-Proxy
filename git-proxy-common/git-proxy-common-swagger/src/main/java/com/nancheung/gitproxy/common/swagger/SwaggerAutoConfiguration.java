@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.api.git.common.swagger;
+package com.nancheung.gitproxy.common.swagger;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

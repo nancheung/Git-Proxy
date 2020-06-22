@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.api.git.common.swagger;
+package com.nancheung.gitproxy.common.swagger;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

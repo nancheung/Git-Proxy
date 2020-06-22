@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.api.git;
 
-import com.nancheung.gitproxy.api.git.common.swagger.EnableSwagger2;
+import com.nancheung.gitproxy.common.swagger.EnableSwagger2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

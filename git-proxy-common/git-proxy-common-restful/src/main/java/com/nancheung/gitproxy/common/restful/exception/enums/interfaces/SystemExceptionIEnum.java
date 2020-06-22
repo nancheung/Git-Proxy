@@ -1,17 +1,18 @@
-package com.nancheung.gitproxy.common.core.exception.enums.interfaces;
+package com.nancheung.gitproxy.common.restful.exception.enums.interfaces;
 
 import lombok.AllArgsConstructor;
 
 /**
- * 第三方异常枚举接口
+ * 系统异常枚举接口
  *
  * @author NanCheung
  */
-public interface ThirdPartyExceptionIEnum extends GitProxyExceptionIEnum {
+
+public interface SystemExceptionIEnum extends GitProxyExceptionIEnum {
     
-    ThirdPartyExceptionIEnum THIRD_PARTY_ERROR = ThirdPartyExceptionIEnum.DefaultThirdPartyExceptionEnum.THIRD_PARTY_ERROR;
+    SystemExceptionIEnum SYSTEM_ERROR = SystemExceptionIEnum.DefaultSystemExceptionEnum.SYSTEM_ERROR;
     
-    String SOURCE = "C";
+    String SOURCE = "B";
     
     @Override
     default String source() {
@@ -20,8 +21,8 @@ public interface ThirdPartyExceptionIEnum extends GitProxyExceptionIEnum {
     
     
     @AllArgsConstructor
-    enum DefaultThirdPartyExceptionEnum implements ThirdPartyExceptionIEnum {
-        THIRD_PARTY_ERROR("0001", "第三方服务错误");
+    enum DefaultSystemExceptionEnum implements SystemExceptionIEnum {
+        SYSTEM_ERROR("0001", "系统错误");
         
         private final String number;
         private final String message;

@@ -1,7 +1,7 @@
 package com.nancheung.gitproxy.common.restful;
 
-import com.nancheung.gitproxy.common.core.exception.enums.interfaces.GitProxyExceptionIEnum;
-import com.nancheung.gitproxy.common.core.exception.enums.interfaces.SystemExceptionIEnum;
+import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.GitProxyExceptionIEnum;
+import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.SystemExceptionIEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;

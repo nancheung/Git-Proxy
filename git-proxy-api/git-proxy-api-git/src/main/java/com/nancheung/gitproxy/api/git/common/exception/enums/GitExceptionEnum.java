@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.api.git.common.exception.enums;
 
-import com.nancheung.gitproxy.common.core.exception.enums.interfaces.ClientExceptionIEnum;
+import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.ClientExceptionIEnum;
 import com.nancheung.gitproxy.common.restful.RestfulHttpStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

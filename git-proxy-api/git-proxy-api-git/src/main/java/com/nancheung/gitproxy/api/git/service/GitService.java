@@ -5,7 +5,7 @@ import com.nancheung.gitproxy.api.git.GitProxyProperties;
 import com.nancheung.gitproxy.api.git.common.GitInfo;
 import com.nancheung.gitproxy.common.core.command.CommandResult;
 import com.nancheung.gitproxy.common.core.command.CommandUtils;
-import com.nancheung.gitproxy.common.core.exception.GitProxyException;
+import com.nancheung.gitproxy.common.restful.exception.GitProxyException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.common.core.exception;
+package com.nancheung.gitproxy.common.restful.exception;
 
 /**
  * 统一异常类

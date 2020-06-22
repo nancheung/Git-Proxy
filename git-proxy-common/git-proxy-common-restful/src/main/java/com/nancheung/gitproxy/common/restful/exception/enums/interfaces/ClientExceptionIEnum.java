@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.common.core.exception.enums.interfaces;
+package com.nancheung.gitproxy.common.restful.exception.enums.interfaces;
 
 import lombok.AllArgsConstructor;
 

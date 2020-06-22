@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
-import com.nancheung.gitproxy.common.core.exception.GitProxyException;
+import com.nancheung.gitproxy.common.restful.exception.GitProxyException;
 
 /**
  * 拒绝执行任务异常

@@ -1,8 +1,8 @@
 package com.nancheung.gitproxy.api.git.controller;
 
-import com.nancheung.gitproxy.common.core.exception.ApiResult;
 import com.nancheung.gitproxy.api.git.common.GitInfo;
 import com.nancheung.gitproxy.api.git.service.GitService;
+import com.nancheung.gitproxy.common.restful.ApiResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

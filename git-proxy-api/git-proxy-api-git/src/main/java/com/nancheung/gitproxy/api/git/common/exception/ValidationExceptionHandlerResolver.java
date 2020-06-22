@@ -1,7 +1,7 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
-import com.nancheung.gitproxy.common.core.exception.ApiResult;
-import com.nancheung.gitproxy.common.core.exception.enums.ValidationExceptionEnum;
+import com.nancheung.gitproxy.common.restful.ApiResult;
+import com.nancheung.gitproxy.common.restful.ValidationExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

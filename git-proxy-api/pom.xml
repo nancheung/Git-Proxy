@@ -24,6 +24,10 @@
             <groupId>com.nancheung</groupId>
             <artifactId>git-proxy-common-swagger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.nancheung</groupId>
+            <artifactId>git-proxy-common-restful</artifactId>
+        </dependency>
 
         <!--validation-->
         <dependency><!--hibernate-validator-->

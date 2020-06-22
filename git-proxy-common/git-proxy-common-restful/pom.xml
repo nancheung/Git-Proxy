@@ -3,18 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>git-proxy</artifactId>
+        <artifactId>git-proxy-common</artifactId>
         <groupId>com.nancheung</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>git-proxy-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>git-proxy-common-swagger</module>
-        <module>git-proxy-common-core</module>
-        <module>git-proxy-common-restful</module>
-    </modules>
+    <artifactId>git-proxy-common-restful</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nancheung</groupId>
+            <artifactId>git-proxy-common-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>

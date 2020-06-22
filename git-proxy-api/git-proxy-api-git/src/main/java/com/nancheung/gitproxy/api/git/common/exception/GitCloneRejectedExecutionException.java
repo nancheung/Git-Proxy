@@ -1,6 +1,5 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
-import com.nancheung.gitproxy.api.git.common.exception.GitProxyRejectedExecutionException;
 import lombok.Getter;
 
 import java.util.concurrent.ThreadPoolExecutor;

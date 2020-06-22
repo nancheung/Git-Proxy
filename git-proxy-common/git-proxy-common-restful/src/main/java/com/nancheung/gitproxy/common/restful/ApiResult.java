@@ -1,4 +1,4 @@
-package com.nancheung.gitproxy.common.core.exception;
+package com.nancheung.gitproxy.common.restful;
 
 import com.nancheung.gitproxy.common.core.exception.enums.interfaces.GitProxyExceptionIEnum;
 import com.nancheung.gitproxy.common.core.exception.enums.interfaces.SystemExceptionIEnum;

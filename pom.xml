@@ -93,6 +93,11 @@
                 <artifactId>git-proxy-common-core</artifactId>
                 <version>${git-proxy.version}</version>
             </dependency>
+            <dependency><!--实现restful风格集成-->
+                <groupId>com.nancheung</groupId>
+                <artifactId>git-proxy-common-restful</artifactId>
+                <version>${git-proxy.version}</version>
+            </dependency>
             <dependency><!--swagger集成-->
                 <groupId>com.nancheung</groupId>
                 <artifactId>git-proxy-common-swagger</artifactId>

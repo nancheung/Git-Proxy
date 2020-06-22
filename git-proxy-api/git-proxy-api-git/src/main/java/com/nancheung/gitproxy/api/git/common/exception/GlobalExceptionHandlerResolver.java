@@ -1,8 +1,8 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
 import com.nancheung.gitproxy.api.git.common.exception.enums.GitExceptionEnum;
-import com.nancheung.gitproxy.common.core.exception.ApiResult;
 import com.nancheung.gitproxy.common.core.exception.enums.interfaces.SystemExceptionIEnum;
+import com.nancheung.gitproxy.common.restful.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.scheduling.annotation.Async;

@@ -2,9 +2,9 @@ package com.nancheung.gitproxy.common.core.command;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.core.util.RuntimeUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.concurrent.*;
@@ -63,7 +63,7 @@ public class CommandUtils {
         
             while (true) {
                 if (resultFuture.isDone() && errorResultFuture.isDone()) {
-                    if (StringUtils.isEmpty(result = resultFuture.get())) {
+                    if (StrUtil.isEmpty(result = resultFuture.get())) {
                         result = errorResultFuture.get();
                     }
                     break;

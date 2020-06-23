@@ -33,8 +33,7 @@
         <git-proxy.version>${project.version}</git-proxy.version>
         <java.version>1.8</java.version>
 
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
@@ -52,20 +51,6 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
-        <!--数据源配置包-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency><!--MybatisPlus-->
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -74,14 +59,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>
@@ -107,7 +90,6 @@
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger-annotations.version}</version>
-                <scope>compile</scope>
             </dependency>
 
             <dependency> <!--工具库-->
@@ -147,22 +129,34 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-            </plugin>
-            <plugin>
+            <plugin><!--https://maven.apache.org/plugins/maven-compiler-plugin/index.html-->
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <target>${maven.compiler.target}</target>
-                    <source>${maven.compiler.source}</source>
-                    <encoding>UTF-8</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin><!--https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/-->
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

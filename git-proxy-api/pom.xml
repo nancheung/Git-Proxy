@@ -16,6 +16,7 @@
     </modules>
 
     <dependencies>
+        <!--git-proxy-common包-->
         <dependency>
             <groupId>com.nancheung</groupId>
             <artifactId>git-proxy-common-core</artifactId>
@@ -29,10 +30,29 @@
             <artifactId>git-proxy-common-restful</artifactId>
         </dependency>
 
+        <!--数据源-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency><!--MybatisPlus-->
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
         <!--validation-->
         <dependency><!--hibernate-validator-->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

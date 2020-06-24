@@ -1,6 +1,5 @@
 package com.nancheung.gitproxy.common.restful.exception.enums;
 
-import com.nancheung.gitproxy.common.restful.RestfulHttpStatus;
 import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.ClientExceptionIEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,7 @@ import org.springframework.http.HttpStatus;
  * @author NanCheung
  */
 @AllArgsConstructor
-public enum ValidationExceptionEnum implements ClientExceptionIEnum, RestfulHttpStatus {
+public enum ValidationExceptionEnum implements ClientExceptionIEnum {
     REQUEST_PARAMETER_ERROR("0100", "用户请求参数错误"),
     USER_INPUT_IS_ILLEGAL("0101", "用户输入内容非法");
     

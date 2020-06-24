@@ -1,6 +1,8 @@
 package com.nancheung.gitproxy.common.restful.exception.enums.interfaces;
 
+import com.nancheung.gitproxy.common.restful.RestfulHttpStatus;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 /**
  * 系统异常枚举接口
@@ -8,7 +10,7 @@ import lombok.AllArgsConstructor;
  * @author NanCheung
  */
 
-public interface SystemExceptionIEnum extends GitProxyExceptionIEnum {
+public interface SystemExceptionIEnum extends GitProxyExceptionIEnum, RestfulHttpStatus {
     
     SystemExceptionIEnum SYSTEM_ERROR = SystemExceptionIEnum.DefaultSystemExceptionEnum.SYSTEM_ERROR;
     
@@ -35,6 +37,11 @@ public interface SystemExceptionIEnum extends GitProxyExceptionIEnum {
         @Override
         public String message() {
             return message;
+        }
+        
+        @Override
+        public HttpStatus httpStatus() {
+            return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 }

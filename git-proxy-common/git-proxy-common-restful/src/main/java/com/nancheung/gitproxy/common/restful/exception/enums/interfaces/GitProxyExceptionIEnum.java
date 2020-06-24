@@ -1,6 +1,8 @@
 package com.nancheung.gitproxy.common.restful.exception.enums.interfaces;
 
+import com.nancheung.gitproxy.common.restful.RestfulHttpStatus;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 /**
  * 异常枚举接口
@@ -40,7 +42,7 @@ public interface GitProxyExceptionIEnum {
     
     
     @AllArgsConstructor
-    enum DefaultExceptionIEnum implements GitProxyExceptionIEnum {
+    enum DefaultExceptionIEnum implements GitProxyExceptionIEnum, RestfulHttpStatus {
         SUCCESS("0000", "成功");
         
         public static final String SOURCE = "0";
@@ -67,6 +69,11 @@ public interface GitProxyExceptionIEnum {
         @Override
         public String message() {
             return message;
+        }
+        
+        @Override
+        public HttpStatus httpStatus() {
+            return HttpStatus.OK;
         }
     }
 }

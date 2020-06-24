@@ -1,13 +1,15 @@
 package com.nancheung.gitproxy.common.restful.exception.enums.interfaces;
 
+import com.nancheung.gitproxy.common.restful.RestfulHttpStatus;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 /**
  * 客户端异常枚举接口
  *
  * @author NanCheung
  */
-public interface ClientExceptionIEnum extends GitProxyExceptionIEnum {
+public interface ClientExceptionIEnum extends GitProxyExceptionIEnum, RestfulHttpStatus {
     
     ClientExceptionIEnum CLIENT_ERROR = DefaultClientExceptionEnum.CLIENT_ERROR;
     
@@ -34,6 +36,11 @@ public interface ClientExceptionIEnum extends GitProxyExceptionIEnum {
         @Override
         public String message() {
             return message;
+        }
+        
+        @Override
+        public HttpStatus httpStatus() {
+            return HttpStatus.BAD_REQUEST;
         }
     }
 }

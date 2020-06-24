@@ -1,13 +1,15 @@
 package com.nancheung.gitproxy.common.restful.exception.enums.interfaces;
 
+import com.nancheung.gitproxy.common.restful.RestfulHttpStatus;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 /**
  * 第三方异常枚举接口
  *
  * @author NanCheung
  */
-public interface ThirdPartyExceptionIEnum extends GitProxyExceptionIEnum {
+public interface ThirdPartyExceptionIEnum extends GitProxyExceptionIEnum, RestfulHttpStatus {
     
     ThirdPartyExceptionIEnum THIRD_PARTY_ERROR = ThirdPartyExceptionIEnum.DefaultThirdPartyExceptionEnum.THIRD_PARTY_ERROR;
     
@@ -34,6 +36,11 @@ public interface ThirdPartyExceptionIEnum extends GitProxyExceptionIEnum {
         @Override
         public String message() {
             return message;
+        }
+        
+        @Override
+        public HttpStatus httpStatus() {
+            return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 }

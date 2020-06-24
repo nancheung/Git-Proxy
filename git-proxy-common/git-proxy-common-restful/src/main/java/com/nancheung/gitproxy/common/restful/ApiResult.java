@@ -2,12 +2,14 @@ package com.nancheung.gitproxy.common.restful;
 
 import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.GitProxyExceptionIEnum;
 import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.SystemExceptionIEnum;
+import com.nancheung.gitproxy.common.restful.util.WebContextUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
@@ -66,6 +68,12 @@ public class ApiResult<T> implements Serializable {
     }
     
     private static <T> ApiResult<T> build(GitProxyExceptionIEnum exceptionEnum, String errorCause, T data) {
+        // 设置异常枚举中的自定义http状态码
+        if (exceptionEnum instanceof RestfulHttpStatus) {
+            HttpServletResponse response = WebContextUtils.getResponse();
+            response.setStatus(((RestfulHttpStatus) exceptionEnum).httpStatus().value());
+        }
+        
         return build(exceptionEnum.code(), exceptionEnum.message(), errorCause, data);
     }
     

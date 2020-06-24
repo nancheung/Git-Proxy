@@ -1,7 +1,6 @@
 package com.nancheung.gitproxy.api.git.common.exception;
 
 import com.nancheung.gitproxy.api.git.common.exception.enums.GitExceptionEnum;
-import com.nancheung.gitproxy.common.restful.exception.enums.interfaces.SystemExceptionIEnum;
 import com.nancheung.gitproxy.common.restful.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.task.TaskRejectedException;
@@ -35,16 +34,5 @@ public class GlobalExceptionHandlerResolver {
     @ExceptionHandler(TaskRejectedException.class)
     public ApiResult<Void> handleTaskRejectedException() {
         return ApiResult.failed(GitExceptionEnum.GIT_DOWNLOAD_THREAD_POOL_FULL);
-    }
-    
-    /**
-     * 未被特殊处理的其他异常
-     *
-     * @param e {@link Exception}
-     */
-    @ExceptionHandler(Exception.class)
-    public ApiResult<Void> handleException(Exception e) {
-        log.error("未捕获的异常", e);
-        return ApiResult.failed(SystemExceptionIEnum.SYSTEM_ERROR, e.getLocalizedMessage());
     }
 }

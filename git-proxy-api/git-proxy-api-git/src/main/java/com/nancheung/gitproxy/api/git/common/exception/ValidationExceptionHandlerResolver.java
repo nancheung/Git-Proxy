@@ -3,8 +3,6 @@ package com.nancheung.gitproxy.api.git.common.exception;
 import com.nancheung.gitproxy.common.restful.ApiResult;
 import com.nancheung.gitproxy.common.restful.exception.enums.ValidationExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +16,6 @@ import javax.validation.ConstraintViolationException;
  * @author NanCheung
  */
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class ValidationExceptionHandlerResolver {
     /**

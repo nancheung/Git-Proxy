@@ -3,10 +3,14 @@ package com.nancheung.gitproxy.common.swagger;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,6 +20,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +31,7 @@ import java.util.stream.Collectors;
  *
  * @author NanCheung
  */
+@Slf4j
 @AllArgsConstructor
 @EnableSwagger2
 @EnableAutoConfiguration
@@ -40,6 +46,7 @@ public class SwaggerAutoConfiguration {
     private static final String BASE_PATH = "/**";
     
     private final SwaggerProperties swaggerProperties;
+    private final Environment environment;
     
     @Bean
     public Docket api() {
@@ -67,6 +74,18 @@ public class SwaggerAutoConfiguration {
                 .securitySchemes(Collections.singletonList(this.oauthSecuritySchema()))
                 .securityContexts(Collections.singletonList(this.securityContext()))
                 .pathMapping("/");
+    }
+    
+    @Order
+    @Bean
+    public CommandLineRunner docAddressTip() {
+        return commandLineRunner -> {
+            if (log.isInfoEnabled()) {
+                String hostAddress = InetAddress.getLocalHost().getHostAddress();
+                String port = environment.getProperty("local.server.port");
+                log.info("接口文档地址：http://{}:{}/doc.html", hostAddress, port);
+            }
+        };
     }
     
     /**

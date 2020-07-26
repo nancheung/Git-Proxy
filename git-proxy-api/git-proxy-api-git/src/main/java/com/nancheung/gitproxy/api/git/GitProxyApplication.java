@@ -1,5 +1,6 @@
 package com.nancheung.gitproxy.api.git;
 
+import com.nancheung.gitproxy.common.rbac.EnableRBAC;
 import com.nancheung.gitproxy.common.swagger.EnableSwagger2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  *
  * @author NanCheung
  */
+@EnableRBAC
 @EnableSwagger2
 @EnableAsync
 @EnableConfigurationProperties(GitProxyProperties.class)

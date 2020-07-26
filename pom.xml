@@ -42,7 +42,8 @@
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger-annotations.version>1.5.20</swagger-annotations.version>
-        <knife4j.version>2.0.2</knife4j.version>
+        <knife4j.version>2.0.4</knife4j.version>
+        <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
     </properties>
 
     <dependencies>
@@ -81,15 +82,27 @@
                 <artifactId>git-proxy-common-restful</artifactId>
                 <version>${git-proxy.version}</version>
             </dependency>
+            <dependency><!--实现RBAC权限模型-->
+                <groupId>com.nancheung</groupId>
+                <artifactId>git-proxy-common-rbac</artifactId>
+                <version>${git-proxy.version}</version>
+            </dependency>
             <dependency><!--swagger集成-->
                 <groupId>com.nancheung</groupId>
                 <artifactId>git-proxy-common-swagger</artifactId>
                 <version>${git-proxy.version}</version>
             </dependency>
+
             <dependency><!--swagger注解-->
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger-annotations.version}</version>
+            </dependency>
+
+            <dependency><!--oauth2-->
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${spring-security-oauth2.version}</version>
             </dependency>
 
             <dependency> <!--工具库-->

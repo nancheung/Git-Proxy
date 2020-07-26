@@ -29,6 +29,10 @@
             <groupId>com.nancheung</groupId>
             <artifactId>git-proxy-common-restful</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.nancheung</groupId>
+            <artifactId>git-proxy-common-rbac</artifactId>
+        </dependency>
 
         <!--数据源-->
         <dependency>

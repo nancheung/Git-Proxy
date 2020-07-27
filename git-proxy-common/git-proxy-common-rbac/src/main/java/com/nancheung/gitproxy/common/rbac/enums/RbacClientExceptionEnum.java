@@ -11,10 +11,18 @@ import org.springframework.http.HttpStatus;
  */
 @AllArgsConstructor
 public enum RbacClientExceptionEnum implements ClientExceptionIEnum {
-    AUTHENTICATION_FAILED("0002", "授权失败");
+    /**
+     * 未经授权
+     */
+    UNAUTHORIZED("0300", "未经授权", HttpStatus.UNAUTHORIZED),
+    /**
+     * 授权失败
+     */
+    AUTHORIZED_FAILED("0301", "授权失败", HttpStatus.FORBIDDEN);
     
     private final String number;
     private final String message;
+    private final HttpStatus httpStatus;
     
     @Override
     public String number() {
@@ -28,6 +36,6 @@ public enum RbacClientExceptionEnum implements ClientExceptionIEnum {
     
     @Override
     public HttpStatus httpStatus() {
-        return HttpStatus.UNAUTHORIZED;
+        return httpStatus;
     }
 }

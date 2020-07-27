@@ -1,35 +1,100 @@
 package com.nancheung.gitproxy.common.rbac.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nancheung.gitproxy.common.rbac.enums.RbacClientExceptionEnum;
 import com.nancheung.gitproxy.common.rbac.service.GitProxyUserDetailsService;
+import com.nancheung.gitproxy.common.restful.ApiResult;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-@Slf4j
+/**
+ * 安全策略自动配置类
+ *
+ * @author NanCheung
+ */
 @AllArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
+@Import(WebSecurityConfiguration.class)
+public class WebSecurityAutoConfiguration {
     
     private final GitProxyUserDetailsService userDetailsService;
-    private final AuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
+    private final ObjectMapper objectMapper;
     
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and()
-                .formLogin().and()
-                // 处理鉴权异常
-                .exceptionHandling().authenticationEntryPoint(resourceAuthExceptionEntryPoint).and()
-                .csrf().disable();
+    /**
+     * 未登录异常方案
+     *
+     * @return 未登录抛出异常 {@link RbacClientExceptionEnum#UNAUTHORIZED}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> {
+            ApiResult<Void> result = ApiResult.failed(RbacClientExceptionEnum.UNAUTHORIZED, authException.getLocalizedMessage());
+            
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.getWriter().write(objectMapper.writeValueAsString(result));
+        };
     }
     
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+    /**
+     * 授权失败处理器
+     *
+     * @return 授权失败抛出异常 {@link RbacClientExceptionEnum#AUTHORIZED_FAILED}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return (request, response, exception) -> {
+            ApiResult<Void> result = ApiResult.failed(RbacClientExceptionEnum.AUTHORIZED_FAILED, exception.getLocalizedMessage());
+            
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.getWriter().write(objectMapper.writeValueAsString(result));
+        };
+    }
+    
+    /**
+     * 授权成功处理器
+     *
+     * @return 序列化 {@link UserDetails}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            User principal = (User) authentication.getPrincipal();
+            Object credentials = authentication.getCredentials();
+            UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getUsername());
+            
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.getWriter().write(objectMapper.writeValueAsString(userDetails));
+        };
+    }
+    
+    /**
+     * 密码编码器
+     * 使用bcrypt方式编码
+     *
+     * @return {@link PasswordEncoderFactories#createDelegatingPasswordEncoder}
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

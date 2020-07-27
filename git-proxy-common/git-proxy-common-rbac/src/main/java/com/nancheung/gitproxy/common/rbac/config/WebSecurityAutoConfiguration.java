@@ -2,7 +2,7 @@ package com.nancheung.gitproxy.common.rbac.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nancheung.gitproxy.common.rbac.enums.RbacClientExceptionEnum;
-import com.nancheung.gitproxy.common.rbac.service.GitProxyUserDetailsService;
+import com.nancheung.gitproxy.common.rbac.util.JwtTokenProvider;
 import com.nancheung.gitproxy.common.restful.ApiResult;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +29,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Import(WebSecurityConfiguration.class)
 public class WebSecurityAutoConfiguration {
     
-    private final GitProxyUserDetailsService userDetailsService;
     private final ObjectMapper objectMapper;
     
     /**
@@ -76,13 +74,11 @@ public class WebSecurityAutoConfiguration {
     @ConditionalOnMissingBean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
-            User principal = (User) authentication.getPrincipal();
-            Object credentials = authentication.getCredentials();
-            UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getUsername());
+            String token = JwtTokenProvider.createToken(authentication);
             
             response.setCharacterEncoding("UTF-8");
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.getWriter().write(objectMapper.writeValueAsString(userDetails));
+            response.getWriter().write(objectMapper.writeValueAsString(token));
         };
     }
     

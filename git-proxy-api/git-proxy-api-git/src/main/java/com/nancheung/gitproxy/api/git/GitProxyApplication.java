@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -24,9 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class GitProxyApplication {
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
     public static void main(String[] args) {
         SpringApplication.run(GitProxyApplication.class, args);
     }
@@ -35,7 +33,7 @@ public class GitProxyApplication {
     public GitProxyUserDetailsService gitProxyUserDetailsService() {
         return username -> User.builder()
                 .username(username)
-                .password(passwordEncoder.encode("{bcrypt}" + username))
+                .password("{bcrypt}$2a$10$MDlE5pxhvRVm8rQLnvt8O.oJM7VOeYaKmrRcIjw23N9wz7TXjRoFC")
                 .authorities(username + "|authorities")
                 .build();
     }

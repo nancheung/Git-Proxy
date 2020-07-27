@@ -1,7 +1,0 @@
-### 登录
-POST http://{{host}}/login
-Content-Type: application/x-www-form-urlencoded
-
-username=root&password={bcrypt}root
-
-###

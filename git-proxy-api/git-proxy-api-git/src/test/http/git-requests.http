@@ -1,2 +1,24 @@
+### 登录
+POST http://{{host}}/login
+Content-Type: application/x-www-form-urlencoded
+
+username=root&password=root
+
+> {%
+client.global.clearAll();
+client.test("login", function() {
+  client.assert(response.status === 200, response.body.message+response.body.errorCause);
+  client.global.set("Authorization", "Bearer "+response.body.toString());
+  client.log("Authorization: "+client.global.get("Authorization"));
+});
+%}
+
 ### clone项目
 GET {{host}}/clone?url={{url}}
+Authorization: {{Authorization}}
+
+> {%
+client.test("clone", function() {
+  client.assert(response.status === 200, response.body.message+response.body.errorCause);
+});
+%}

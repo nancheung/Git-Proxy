@@ -43,7 +43,7 @@
         <swagger.version>2.9.2</swagger.version>
         <swagger-annotations.version>1.5.20</swagger-annotations.version>
         <knife4j.version>2.0.4</knife4j.version>
-        <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
+        <jjwt.version>0.10.5</jjwt.version>
     </properties>
 
     <dependencies>
@@ -99,10 +99,22 @@
                 <version>${swagger-annotations.version}</version>
             </dependency>
 
-            <dependency><!--oauth2-->
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${spring-security-oauth2.version}</version>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
             </dependency>
 
             <dependency> <!--工具库-->

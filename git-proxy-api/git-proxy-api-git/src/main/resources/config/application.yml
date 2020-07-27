@@ -12,6 +12,9 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+server:
+  port: 7920
+
 mybatis-plus:
   global-config:
     banner: false

@@ -47,6 +47,19 @@ public class JwtTokenProvider {
     }
     
     /**
+     * 解析token
+     *
+     * @param token token
+     * @return claims
+     */
+    public Claims parseToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+    
+    /**
      * 获取Authentication
      *
      * @param token token

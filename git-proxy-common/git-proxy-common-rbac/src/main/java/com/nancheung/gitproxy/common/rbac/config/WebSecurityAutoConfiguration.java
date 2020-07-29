@@ -2,7 +2,6 @@ package com.nancheung.gitproxy.common.rbac.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nancheung.gitproxy.common.rbac.enums.RbacClientExceptionEnum;
-import com.nancheung.gitproxy.common.rbac.util.JwtTokenProvider;
 import com.nancheung.gitproxy.common.restful.ApiResult;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,12 +10,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * 安全策略自动配置类
@@ -26,7 +23,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @AllArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Import(WebSecurityConfiguration.class)
+@Import(BearerConfiguration.class)
 public class WebSecurityAutoConfiguration {
     
     private final ObjectMapper objectMapper;
@@ -62,23 +59,6 @@ public class WebSecurityAutoConfiguration {
             response.setCharacterEncoding("UTF-8");
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.getWriter().write(objectMapper.writeValueAsString(result));
-        };
-    }
-    
-    /**
-     * 授权成功处理器
-     *
-     * @return 序列化 {@link UserDetails}
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return (request, response, authentication) -> {
-            String token = JwtTokenProvider.createToken(authentication);
-            
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.getWriter().write(objectMapper.writeValueAsString(token));
         };
     }
     

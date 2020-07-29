@@ -1,6 +1,6 @@
 package com.nancheung.gitproxy.common.rbac.config;
 
-import com.nancheung.gitproxy.common.rbac.filter.JwtAuthenticationFilter;
+import com.nancheung.gitproxy.common.rbac.bearer.BearerAuthenticationFilter;
 import com.nancheung.gitproxy.common.rbac.service.GitProxyUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,18 +14,17 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * 安全策略配置
- *
  * @author NanCheung
  */
 @AllArgsConstructor
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class BearerWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     private final GitProxyUserDetailsService userDetailsService;
     
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthenticationFailureHandler authenticationFailureHandler;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final BearerAuthenticationFilter authenticationFilter;
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -43,8 +42,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 处理鉴权异常
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and()
-                // 优先执行JWT身份认证过滤器
-                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                // 优先执行自定义身份认证过滤器
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        ;
     }
     
     @Override
